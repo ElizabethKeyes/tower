@@ -72,7 +72,8 @@ export class TowerEventsController extends BaseController {
     try {
       const towerEventId = req.params.towerEventId
       const towerEventData = req.body
-      const towerEvent = await towerEventsService.editTowerEvent(towerEventId, towerEventData)
+      const userId = req.userInfo.id
+      const towerEvent = await towerEventsService.editTowerEvent(towerEventId, towerEventData, userId)
       res.send(towerEvent)
     } catch (error) {
       next(error)
@@ -82,7 +83,8 @@ export class TowerEventsController extends BaseController {
   async cancelEvent(req, res, next) {
     try {
       const towerEventId = req.params.towerEventId
-      const message = await towerEventsService.cancelEvent(towerEventId)
+      const userId = req.userInfo.id
+      const message = await towerEventsService.cancelEvent(towerEventId, userId)
       res.send(message)
     } catch (error) {
       next(error)

@@ -1,11 +1,14 @@
 import { dbContext } from "../db/DbContext.js"
-import { BadRequest } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { towerEventsService } from "./TowerEventsService.js"
 
 class TicketsService {
 
   async createTicket(ticketData) {
     const towerEvent = await towerEventsService.getTowerEventById(ticketData.eventId)
+    if (towerEvent.capacity == 0) {
+      throw new BadRequest("Cannot complete request, event has no capacity remaining")
+    }
     towerEvent.capacity--
     await towerEvent.save()
     if (towerEvent.isCanceled == true) {
@@ -27,8 +30,11 @@ class TicketsService {
     return tickets
   }
 
-  async deleteTicket(ticketId) {
+  async deleteTicket(ticketId, userId) {
     const ticket = await dbContext.Tickets.findById(ticketId)
+    if (userId != ticket.accountId) {
+      throw new Forbidden("You do not have permission to delete this ticket.")
+    }
     const towerEvent = await towerEventsService.getTowerEventById(ticket.eventId)
     towerEvent.capacity++
     await towerEvent.save()

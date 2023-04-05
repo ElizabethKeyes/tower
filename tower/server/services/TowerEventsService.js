@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { BadRequest } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TowerEventsService {
   async getAllTowerEvents() {
@@ -20,8 +20,11 @@ class TowerEventsService {
     return towerEvent
   }
 
-  async editTowerEvent(towerEventId, towerEventData) {
+  async editTowerEvent(towerEventId, towerEventData, userId) {
     const towerEvent = await dbContext.TowerEvents.findById(towerEventId)
+    if (userId != towerEvent.creatorId) {
+      throw new Forbidden("You do not have permission to edit this event.")
+    }
     if (towerEvent.isCanceled) {
       throw new BadRequest("A cancelled event can no longer be edited.")
     }
@@ -37,8 +40,10 @@ class TowerEventsService {
     return towerEvent
   }
 
-  async cancelEvent(towerEventId) {
+  async cancelEvent(towerEventId, userId) {
     const towerEvent = await dbContext.TowerEvents.findById(towerEventId)
+    if (userId != towerEvent.creatorId)
+      throw new Forbidden("You do not have permission to cancel this event.")
     towerEvent.isCanceled = true
     await towerEvent.save()
     return `${towerEvent.name} has been cancelled.`
