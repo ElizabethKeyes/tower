@@ -17,11 +17,16 @@ const routes = [
     component: loadPage('AboutPage')
   },
   {
+    path: '/TowerEvent/:towerEventId',
+    name: 'EventDetails',
+    component: loadPage('EventDetailsPage'),
+  },
+  {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
-  }
+  },
 ]
 
 export const router = createRouter({
