@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="col-3" v-for="t in towerEvents" :key="t.id">
-      <h4 class="text-light">{{ t.name }}</h4>
+      <EventCard :towerEvent="t" />
     </div>
   </section>
 </template>
@@ -32,23 +32,25 @@ import Pop from "../utils/Pop.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
 import { computed } from "@vue/reactivity";
 import { AppState } from '../AppState.js'
+import EventCard from "../components/EventCard.vue";
 
 export default {
   setup() {
     async function getAllTowerEvents() {
       try {
-        await towerEventsService.getAllTowerEvents()
-      } catch (error) {
-        logger.log(error)
-        Pop.error(error.message)
+        await towerEventsService.getAllTowerEvents();
+      }
+      catch (error) {
+        logger.log(error);
+        Pop.error(error.message);
       }
     }
-
-    onMounted(() => getAllTowerEvents())
+    onMounted(() => getAllTowerEvents());
     return {
       towerEvents: computed(() => AppState.towerEvents)
-    }
-  }
+    };
+  },
+  components: { EventCard }
 }
 </script>
 
