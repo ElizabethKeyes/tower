@@ -12,4 +12,10 @@ export const TowerEventSchema = new Schema({
   type: { type: String, enum: ['concert', 'convention', 'sport', 'digital'], required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
-// TODO add virtual creator property
+
+TowerEventSchema.virtual("creator", {
+  localField: 'creatorId',
+  ref: 'Account',
+  foreignField: '_id',
+  justOne: true
+})

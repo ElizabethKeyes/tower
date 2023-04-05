@@ -3,12 +3,12 @@ import { BadRequest } from "../utils/Errors.js"
 
 class TowerEventsService {
   async getAllTowerEvents() {
-    const towerEvents = await dbContext.TowerEvents.find()
+    const towerEvents = await dbContext.TowerEvents.find().populate("creator", "name picture")
     return towerEvents
   }
 
   async getTowerEventById(towerEventId) {
-    const towerEvent = await dbContext.TowerEvents.findById(towerEventId)
+    const towerEvent = await dbContext.TowerEvents.findById(towerEventId).populate("creator", "name picture")
     if (!towerEvent) {
       throw new BadRequest("The tower event you are looking for does not exist")
     }
