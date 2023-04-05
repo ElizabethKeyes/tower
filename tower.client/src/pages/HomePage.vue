@@ -1,5 +1,5 @@
 <template>
-  <section class="row">
+  <section class="row px-4">
     <div class="col-12">
       <div class="d-flex justify-content-center">
         <img src="../assets/img/seats.png" alt="" class="seats-pic">
@@ -10,23 +10,20 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
-      <div class="d-flex justify-content-evenly align-content-center bg-grey mt-4">
-        <p class="mb-0 py-2">All</p>
-        <p class="mb-0 py-2">Concert</p>
-        <p class="mb-0 py-2">Convention</p>
-        <p class="mb-0 py-2">Sport</p>
-        <p class="mb-0 py-2">Digital</p>
+    <div class="col-12 mb-3">
+      <div class="d-flex justify-content-evenly align-content-center bg-grey mt-4 py-2">
+        <button class="btn text-light" @click="changeFilterCategory('')">All</button>
+        <button class="btn text-light" v-for="c in categories" @click="changeFilterCategory(c)">{{ c }}</button>
       </div>
     </div>
-    <div class="col-3" v-for="t in towerEvents" :key="t.id">
+    <div class="col-md-3" v-for="t in towerEvents" :key="t.id">
       <EventCard :towerEvent="t" />
     </div>
   </section>
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
@@ -36,6 +33,7 @@ import EventCard from "../components/EventCard.vue";
 
 export default {
   setup() {
+    const filterCategory = ref('')
     async function getAllTowerEvents() {
       try {
         await towerEventsService.getAllTowerEvents();
@@ -47,7 +45,16 @@ export default {
     }
     onMounted(() => getAllTowerEvents());
     return {
-      towerEvents: computed(() => AppState.towerEvents)
+      categories: ['Concert', 'Convention', 'Sport', 'Digital'],
+      towerEvents: computed(() => {
+        if (!filterCategory.value) {
+          return AppState.towerEvents
+        } else { return AppState.towerEvents.filter(e => e.type == filterCategory.value) }
+      }),
+
+      changeFilterCategory(category) {
+        filterCategory.value = category.toLowerCase()
+      }
     };
   },
   components: { EventCard }
@@ -76,7 +83,7 @@ export default {
 }
 
 .seats-pic {
-  width: 95%;
+  width: 100%;
   height: 30vh;
   margin-top: 2em;
   border: solid 2px #56C7FB;
