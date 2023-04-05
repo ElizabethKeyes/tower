@@ -1,6 +1,9 @@
 <template>
-  <h1>Welcome to the event details page</h1>
-  <h1>Selected Event {{ towerEvent?.name }}</h1>
+  <section class="row px-4">
+    <div class="col-12">
+      <EventDetailsCard />
+    </div>
+  </section>
 </template>
 
 
@@ -11,6 +14,7 @@ import { useRoute } from "vue-router";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
+import EventDetailsCard from '../components/EventDetailsCard.vue'
 
 export default {
   setup() {
@@ -31,7 +35,8 @@ export default {
     return {
       towerEvent: computed(() => AppState.towerEvent)
     }
-  }
+  },
+  components: { EventDetailsCard }
 }
 </script>
 
