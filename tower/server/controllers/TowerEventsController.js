@@ -58,8 +58,8 @@ export class TowerEventsController extends BaseController {
   async cancelEvent(req, res, next) {
     try {
       const towerEventId = req.params.towerEventId
-      // TODO come back and finish soft delete function
-      res.send()
+      const message = await towerEventsService.cancelEvent(towerEventId)
+      res.send(message)
     } catch (error) {
       next(error)
     }

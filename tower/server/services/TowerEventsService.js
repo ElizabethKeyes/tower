@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { BadRequest } from "../utils/Errors.js"
 
 class TowerEventsService {
   async getAllTowerEvents() {
@@ -8,6 +9,9 @@ class TowerEventsService {
 
   async getTowerEventById(towerEventId) {
     const towerEvent = await dbContext.TowerEvents.findById(towerEventId)
+    if (!towerEvent) {
+      throw new BadRequest("The tower event you are looking for does not exist")
+    }
     return towerEvent
   }
 
@@ -18,6 +22,9 @@ class TowerEventsService {
 
   async editTowerEvent(towerEventId, towerEventData) {
     const towerEvent = await dbContext.TowerEvents.findById(towerEventId)
+    if (towerEvent.isCanceled) {
+      throw new BadRequest("A cancelled event can no longer be edited.")
+    }
     towerEvent.name = towerEventData.name ? towerEventData.name : towerEvent.name
     towerEvent.description = towerEventData.description ? towerEventData.description : towerEvent.description
     towerEvent.coverImg = towerEventData.coverImg ? towerEventData.coverImg : towerEvent.coverImg
@@ -28,6 +35,13 @@ class TowerEventsService {
     towerEvent.type = towerEventData.type ? towerEventData.type : towerEvent.type
     await towerEvent.save()
     return towerEvent
+  }
+
+  async cancelEvent(towerEventId) {
+    const towerEvent = await dbContext.TowerEvents.findById(towerEventId)
+    towerEvent.isCanceled = true
+    await towerEvent.save()
+    return `${towerEvent.name} has been cancelled.`
   }
 
 
