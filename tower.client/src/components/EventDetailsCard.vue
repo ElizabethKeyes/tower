@@ -3,10 +3,10 @@
     <div class="tower-event-card"
       :style="{ backgroundImage: `url(${towerEvent?.coverImg})`, backgroundPosition: 'center' }">
       <section class="row blur">
-        <div class="col-5 d-flex align-items-center">
+        <div class="col-md-5 d-flex align-items-center">
           <img :src="towerEvent?.coverImg" :alt="'cover photo for' + towerEvent?.name" class="featured-pic">
         </div>
-        <div class="col-7 card-content">
+        <div class="col-md-7 card-content">
           <div>
             <div class="d-flex justify-content-between">
               <div>
@@ -20,9 +20,16 @@
             <p class="mt-2">{{ towerEvent?.description }}</p>
           </div>
           <div class="d-flex justify-content-between">
-            <h5><span class="text-primary fw-bold">{{ towerEvent?.capacity }}</span> Spots Left</h5>
-            <button class="btn btn-warning attend-button">Attend <img src="../assets/img/personIcon.svg" height="20"
-                alt="person icon"></button>
+            <h5 v-if="towerEvent?.capacity > 0 && towerEvent?.isCanceled == false"><span class="text-primary fw-bold"
+                :class="{ 'text-danger': towerEvent?.capacity <= 20 }">{{
+                  towerEvent?.capacity }}</span> Spots Left</h5>
+            <h5 v-else-if="towerEvent?.capacity == 0 && towerEvent?.isCanceled == false" class="red-message">Sold Out</h5>
+            <h5 v-else-if="towerEvent?.isCanceled" class="red-message">Cancelled</h5>
+            <div v-show="!hasTicket">
+              <button @click="attendEvent()" v-show="towerEvent?.isCanceled == false && towerEvent?.capacity > 0"
+                class="btn btn-warning attend-button">Attend <img src="../assets/img/personIcon.svg" height="20"
+                  alt="person icon"></button>
+            </div>
           </div>
         </div>
       </section>
@@ -35,11 +42,29 @@
 import { computed } from "vue";
 import { TowerEvent } from "../models/TowerEvent.js";
 import { AppState } from "../AppState.js";
+import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
+import { useRoute } from "vue-router";
+import { ticketsService } from "../services/TicketsService.js";
 
 export default {
   setup() {
+    const route = useRoute()
     return {
-      towerEvent: computed(() => AppState.towerEvent)
+      towerEvent: computed(() => AppState.towerEvent),
+      account: computed(() => AppState.account),
+      hasTicket: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
+
+      async attendEvent() {
+        try {
+          const towerEventId = route.params.towerEventId
+          await ticketsService.attendEvent(towerEventId)
+          this.towerEvent.capacity--
+        } catch (error) {
+          logger.log(error)
+          Pop.error(error.message)
+        }
+      }
     }
   }
 }
@@ -89,7 +114,16 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   width: 9vw;
+}
 
+.red-message {
+  text-shadow: 0px 0px 0px;
+  background-color: #FF5977;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  padding-left: 1em;
+  padding-right: 1em
 }
 </style>
 
