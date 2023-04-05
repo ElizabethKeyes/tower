@@ -19,8 +19,8 @@
         <p class="mb-0 py-2">Digital</p>
       </div>
     </div>
-    <div class="col-3">
-
+    <div class="col-3" v-for="t in towerEvents" :key="t.id">
+      <h4 class="text-light">{{ t.name }}</h4>
     </div>
   </section>
 </template>
@@ -30,6 +30,8 @@ import { onMounted } from "vue";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
+import { computed } from "@vue/reactivity";
+import { AppState } from '../AppState.js'
 
 export default {
   setup() {
@@ -44,6 +46,7 @@ export default {
 
     onMounted(() => getAllTowerEvents())
     return {
+      towerEvents: computed(() => AppState.towerEvents)
     }
   }
 }
