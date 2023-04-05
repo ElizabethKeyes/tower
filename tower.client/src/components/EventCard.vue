@@ -2,14 +2,19 @@
   <router-link :to="{ name: 'EventDetails', params: { towerEventId: towerEvent.id } }">
     <div class="event-card" :style="{ backgroundImage: `url(${towerEvent.coverImg})` }">
       <div class="event-content" :class="{ capacityBorder: towerEvent.capacity <= 20 && towerEvent.capacity != 0 }">
-        <h6 class="mb-0">{{ towerEvent.name }}</h6>
-        <p class="mb-0">{{ towerEvent.location }}</p>
-        <p class="mb-0">{{ new Date(towerEvent.startDate).toLocaleDateString() }}</p>
-        <p class="text-end" v-if="towerEvent.capacity > 0 && towerEvent.isCanceled == false"><span class="blue-text">{{
-          towerEvent.capacity }}</span> spots
-          left</p>
-        <p class="red-message" v-else-if="towerEvent.capacity == 0 && towerEvent.isCanceled == false">Sold Out</p>
-        <p class="red-message" v-else-if="towerEvent.isCanceled == true">Canceled</p>
+        <div>
+          <h6 class="mb-0">{{ towerEvent.name }}</h6>
+          <p class="mb-0">{{ towerEvent.location }}</p>
+          <p class="mb-0">{{ new Date(towerEvent.startDate).toLocaleDateString() }}</p>
+        </div>
+        <div>
+          <p class="text-end mb-1" v-if="towerEvent.capacity > 0 && towerEvent.isCanceled == false"><span
+              class="blue-text">{{
+                towerEvent.capacity }}</span> spots
+            left</p>
+          <p class="red-message" v-else-if="towerEvent.capacity == 0 && towerEvent.isCanceled == false">Sold Out</p>
+          <p class="red-message" v-else-if="towerEvent.isCanceled == true">Canceled</p>
+        </div>
       </div>
     </div>
   </router-link>
@@ -59,6 +64,9 @@ export default {
   padding-left: .3em;
   padding-right: .3em;
   text-shadow: 1px 1px 2px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .capacityBorder {
@@ -75,6 +83,7 @@ export default {
   background-color: #FF5977;
   color: black;
   text-align: center;
-  font-weight: bold
+  font-weight: bold;
+  margin-bottom: 4px
 }
 </style>
