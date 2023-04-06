@@ -21,7 +21,8 @@ class TowerEventsService {
 
   async createEvent(eventData) {
     const res = await api.post(`api/events`, eventData)
-    console.log(res.data)
+    AppState.towerEvents.push(new TowerEvent(res.data))
+    AppState.towerEvent = new TowerEvent(res.data)
   }
 }
 

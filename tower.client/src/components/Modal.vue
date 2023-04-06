@@ -59,10 +59,13 @@ import { ref } from "vue";
 import { towerEventsService } from "../services/TowerEventsService.js";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
+import { useRouter } from "vue-router";
+import { AppState } from "../AppState.js";
 
 export default {
   setup() {
     const editable = ref({})
+    const router = useRouter()
     return {
       editable,
 
@@ -71,6 +74,7 @@ export default {
           const eventData = editable.value
           eventData.isCanceled = false
           await towerEventsService.createEvent(eventData)
+          window.location.assign(`http://localhost:8080/#/TowerEvent/${AppState.towerEvent.id}`)
         } catch (error) {
           logger.log(error)
           Pop.error(error.message)
