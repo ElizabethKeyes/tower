@@ -11,8 +11,7 @@
     </div>
     <section class="row my-3 pe-0" v-for="c in comments" :key="c.id">
       <div class="col-2 d-flex align-items-center">
-        <img :src="c.creator.picture" :alt="'a photo of ' + c.creator.name" :title="'a photo of ' + c.creator.name"
-          class="profile-pic">
+        <img :src="c.creator.picture" :alt="'a photo of ' + c.creator.name" :title="c.creator.name" class="profile-pic">
       </div>
       <div class="col-10 pe-0">
         <div class="comment-card">
