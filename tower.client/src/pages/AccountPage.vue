@@ -11,13 +11,9 @@
           Account</button>
       </div>
       <section class="row">
-
-
         <div class="collapse show" id="collapseMyEvents">
           <div class="row">
-
-
-            <div class="col-md-3" v-for="t in towerEvents" :key="t.id">
+            <div class="col-md-3" v-for="t in myTowerEvents" :key="t.id">
               <EventCard :towerEvent="t" />
             </div>
           </div>
@@ -79,7 +75,7 @@ export default {
     return {
       account: computed(() => AppState.account),
       tickets: computed(() => AppState.tickets),
-      towerEvents: computed(() => AppState.towerEvents),
+      myTowerEvents: computed(() => AppState.towerEvents.filter(t => t.creatorId == AppState.account.id)),
 
       async cancelTicket(ticketId) {
         try {

@@ -17,7 +17,10 @@
       <div class="col-10 pe-0">
         <div class="comment-card">
           <div class="d-flex justify-content-between">
-            <p class="fw-bold mb-1">{{ c.creator.name }}</p>
+            <div class="d-flex">
+              <p class="fw-bold mb-1">{{ c.creator.name }}</p>
+              <p v-if="creatorAttending(c.creatorId)" class="text-grey ms-3">Attending this Event</p>
+            </div>
             <div v-if="c.creatorId == account.id" class="dropdown">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -55,6 +58,7 @@ export default {
       editable,
       comments: computed(() => AppState.comments),
       account: computed(() => AppState.account),
+      tickets: computed(() => AppState.tickets),
 
       async postComment() {
         try {
@@ -79,6 +83,12 @@ export default {
           logger.log(error)
           Pop.error(error.message)
         }
+      },
+
+      creatorAttending(creatorId) {
+        if (AppState.tickets.find(t => t.accountId == creatorId)) {
+          return true
+        } else return false
       }
     }
   }
