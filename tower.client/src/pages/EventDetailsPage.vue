@@ -19,7 +19,7 @@
 
 
 <script>
-import { computed, onMounted } from "vue";
+import { computed, onBeforeUnmount, onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import { useRoute } from "vue-router";
 import { logger } from "../utils/Logger.js";
@@ -68,6 +68,10 @@ export default {
       getTowerEventById(),
         getTowerEventAttendees(),
         getCommentsByEventId()
+    })
+
+    onBeforeUnmount(() => {
+      AppState.tickets = []
     })
     return {
       account: computed(() => AppState.account),

@@ -25,7 +25,10 @@
       <section class="row justify-content-center mt-4">
         <div class="col-md-10" v-for="t in tickets" :key="t?.id">
           <div class="bg-grey mb-4 ticket-card">
-            <img :src="t.event?.coverImg" :alt="t.event?.name + ' cover image'" class="ticket-img">
+            <router-link v-if="tickets" :to="{ name: 'EventDetails', params: { towerEventId: t.event?.id } }"
+              class="my-link">
+              <img :src="t.event?.coverImg" :alt="t.event?.name + ' cover image'" class="ticket-img">
+            </router-link>
             <div class="mt-2 ms-2">
               <h6 class="text-light">{{ t.event?.name }}</h6>
               <h6 class="text-info">{{ t.event?.location }}</h6>
@@ -103,9 +106,13 @@ export default {
 
 .ticket-img {
   height: 100%;
-  width: 40%;
+  width: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.my-link {
+  width: 40%;
 }
 
 .ticket-circle {

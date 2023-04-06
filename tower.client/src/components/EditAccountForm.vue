@@ -27,10 +27,11 @@
 <script>
 import { ref } from "vue";
 import { accountService } from "../services/AccountService.js";
+import { AppState } from "../AppState.js";
 
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({ ...AppState.account })
     return {
       editable,
 
