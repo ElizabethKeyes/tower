@@ -9,6 +9,11 @@ class CommentsService {
     const res = await api.get(`/api/events/${towerEventId}/comments`)
     AppState.comments = res.data.map(c => new Comment(c))
   }
+
+  async postComment(commentData) {
+    const res = await api.post(`/api/comments`, commentData)
+    AppState.comments.push(new Comment(res.data))
+  }
 }
 
 export const commentsService = new CommentsService()
