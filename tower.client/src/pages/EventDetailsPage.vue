@@ -8,7 +8,7 @@
     <div class="col-md-10">
       <p class="text-secondary mt-3">See what people are saying</p>
       <div class="bg-grey py-2 px-4 mb-4">
-        <p class="text-success text-end mt-1">Join the conversation</p>
+        <p class="text-success text-end mt-1" v-if="account.id">Join the conversation</p>
         <CommentsComponent />
       </div>
 
@@ -69,6 +69,7 @@ export default {
         getCommentsByEventId()
     })
     return {
+      account: computed(() => AppState.account),
       towerEvent: computed(() => AppState.towerEvent),
       comments: computed(() => AppState.comments)
     }

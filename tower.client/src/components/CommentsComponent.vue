@@ -1,10 +1,10 @@
 <template>
   <section class="row">
-    <div class="col-12">
-
+    <div v-if="account.id" class="col-12">
+      <!-- TODO disable/remove textarea when user is not logged in -->
       <form @submit.prevent="postComment()">
         <textarea name="comment box" id="comment-box" cols="30" rows="4" class="form-control mb-3"
-          placeholder="write a comment..." v-model="editable.body"></textarea>
+          placeholder="tell the people..." v-model="editable.body"></textarea>
         <div class="d-flex justify-content-end">
           <button type="submit" class="btn btn-success text-black">Post Comment</button>
         </div>
@@ -17,7 +17,20 @@
       </div>
       <div class="col-10 pe-0">
         <div class="comment-card">
-          <p class="fw-bold mb-1">{{ c.creator.name }}</p>
+          <div class="d-flex justify-content-between">
+            <p class="fw-bold mb-1">{{ c.creator.name }}</p>
+            <div v-if="c.creatorId == account.id" class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                ...
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li @click="deleteComment(c.id)">
+                  <p class="dropdown-item mb-0"><i class="mdi mdi-delete-outline text-danger me-1"></i>Delete Comment</p>
+                </li>
+              </ul>
+            </div>
+          </div>
           <p>{{ c.body }}</p>
         </div>
       </div>
@@ -41,6 +54,8 @@ export default {
     return {
       editable,
       comments: computed(() => AppState.comments),
+      account: computed(() => AppState.account),
+
       async postComment() {
         try {
           const form = window.event.target
@@ -51,6 +66,17 @@ export default {
           form.reset()
         } catch (error) {
           logger.error(error)
+          Pop.error(error.message)
+        }
+      },
+
+      async deleteComment(commentId) {
+        try {
+          if (await Pop.confirm("Are you sure you'd like to delete this comment?", "This action can't be undone.", "Yes, I'm sure", "warning")) {
+            await commentsService.deleteComment(commentId)
+          }
+        } catch (error) {
+          logger.log(error)
           Pop.error(error.message)
         }
       }
@@ -70,6 +96,7 @@ export default {
 .comment-card {
   background-color: #E2F9FF;
   padding: .5em;
-  color: #2A2D3A
+  color: #2A2D3A;
+  border-radius: 5px
 }
 </style>
