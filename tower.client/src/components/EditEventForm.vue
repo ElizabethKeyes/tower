@@ -26,7 +26,7 @@
         </div>
         <div class="col-6 mb-2">
           <label for="startDate">Start Date</label>
-          <input type="date" class="form-control" required v-model="editable.startDate">
+          <input type="datetime-local" class="form-control" required v-model="editable.startDate">
         </div>
         <div class="col-6">
           <label for="type">Type of Event</label>

@@ -26,7 +26,7 @@
         </div>
         <div class="col-6 mb-2">
           <label for="startDate">Start Date</label>
-          <input type="date" class="form-control" required v-model="editable.startDate">
+          <input type="datetime-local" class="form-control" required v-model="editable.startDate">
         </div>
         <div class="col-6">
           <label for="type">Type of Event</label>
@@ -50,13 +50,28 @@
 
 <script>
 import { ref } from "vue";
+import { towerEventsService } from "../services/TowerEventsService.js";
+import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
+import { AppState } from "../AppState.js";
 
 export default {
   setup() {
     const editable = ref({})
 
     return {
-      editable
+      editable,
+      async createEvent() {
+        try {
+          const eventData = editable.value
+          eventData.isCanceled = false
+          await towerEventsService.createEvent(eventData)
+          window.location.assign(`http://localhost:8080/#/TowerEvent/${AppState.towerEvent.id}`)
+        } catch (error) {
+          logger.log(error)
+          Pop.error(error.message)
+        }
+      }
     }
   }
 }

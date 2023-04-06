@@ -22,17 +22,7 @@ export default {
     const router = useRouter()
     return {
 
-      async createEvent() {
-        try {
-          const eventData = editable.value
-          eventData.isCanceled = false
-          await towerEventsService.createEvent(eventData)
-          window.location.assign(`http://localhost:8080/#/TowerEvent/${AppState.towerEvent.id}`)
-        } catch (error) {
-          logger.log(error)
-          Pop.error(error.message)
-        }
-      }
+
     }
   }
 }
