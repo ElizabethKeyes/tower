@@ -30,6 +30,8 @@
                 class="btn btn-warning attend-button">Attend <img src="../assets/img/personIcon.svg" height="20"
                   alt="person icon"></button>
             </div>
+            <!-- <button v-show="hasTicket" class="btn btn-danger text-black cancel-button" @click="cancelTicket(t.id)">Cancel
+              Ticket</button> -->
           </div>
         </div>
       </section>
