@@ -7,12 +7,16 @@ class TicketsService {
   async getTowerEventAttendees(towerEventId) {
     const res = await api.get(`/api/events/${towerEventId}/tickets`)
     AppState.tickets = res.data.map(t => new Ticket(t))
-    logger.log('[tickets length]', AppState.tickets.length)
   }
 
   async attendEvent(towerEventId) {
     const res = await api.post(`api/tickets`, { eventId: towerEventId })
     AppState.tickets.push(new Ticket(res.data))
+  }
+
+  async getTicketsByAccountId() {
+    const res = await api.get('account/tickets')
+    AppState.tickets = res.data.map(t => new Ticket(t))
   }
 }
 

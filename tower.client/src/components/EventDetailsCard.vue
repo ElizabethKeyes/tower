@@ -73,13 +73,13 @@ export default {
 
 <style lang="scss" scoped>
 .tower-event-card {
-  height: 50vh;
+  min-height: 50vh;
   margin-top: 2em;
   background-size: 125%;
 }
 
 .blur {
-  height: 50vh;
+  min-height: 50vh;
   margin-top: 2em;
   background-color: #246D8E99;
   backdrop-filter: blur(6px);
@@ -90,7 +90,7 @@ export default {
 .featured-pic {
   object-fit: cover;
   object-position: center;
-  height: 100%;
+  height: 42vh;
   width: 100%;
   border: 2px solid #CCF3FD66;
   margin-left: 1em;

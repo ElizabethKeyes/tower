@@ -1,7 +1,7 @@
 <template>
   <div class="bg-grey">
     <div v-for="t in tickets" :key="t.id">
-      <img :src="t.profile.picture" :title="'a photo of ' + t.profile.name" class="profile-pic">
+      <img :src="t.profile?.picture" :title="'a photo of ' + t.profile?.name" class="profile-pic">
     </div>
     <h5 class="text-center py-2" v-if="tickets.length == 0">Hmm... No attendees yet. You could be the first!</h5>
   </div>

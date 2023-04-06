@@ -5,7 +5,7 @@ export class TowerEvent {
     this.id = data.id
     this.capacity = data.capacity
     this.coverImg = data.coverImg
-    this.creator = new Profile(data.creator)
+    this.creator = data.creator ? new Profile(data.creator) : null
     this.creatorId = data.creatorId
     this.description = data.description
     this.isCanceled = data.isCanceled
