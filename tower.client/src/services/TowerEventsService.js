@@ -17,8 +17,11 @@ class TowerEventsService {
   async getEventsByCreatorId(accountId) {
     const res = await api.get(`api/events?creatorId=${accountId}`)
     AppState.towerEvents = res.data.map(t => new TowerEvent(t))
-    logger.log('[CLASSED EVENTS BY ME]', AppState.towerEvents)
+  }
 
+  async createEvent(eventData) {
+    const res = await api.post(`api/events`, eventData)
+    console.log(res.data)
   }
 }
 
