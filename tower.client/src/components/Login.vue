@@ -55,6 +55,8 @@ export default {
   width: 8vh;
   margin-top: 2em;
   border-radius: 5px;
-  border: solid 1px #56C7FB
+  border: solid 1px #56C7FB;
+  object-fit: cover;
+  object-position: center;
 }
 </style>

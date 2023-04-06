@@ -91,6 +91,8 @@ export default {
   width: 10vh;
   height: 10vh;
   border-radius: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .comment-card {

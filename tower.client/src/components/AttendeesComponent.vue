@@ -28,6 +28,9 @@ export default {
 .profile-pic {
   border-radius: 100%;
   height: 8vh;
+  width: 8vh;
   margin: .25em;
+  object-fit: cover;
+  object-position: center;
 }
 </style>

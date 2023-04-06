@@ -7,6 +7,8 @@
           data-bs-target="#collapseMyEvents" aria-expanded="false" aria-controls="collapseMyEvents">
           Expand/Collapse Events
         </button>
+        <button class="btn btn-info h-50 mt-5 ms-3" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit
+          Account</button>
       </div>
       <section class="row">
 
@@ -41,6 +43,11 @@
       </section>
     </div>
   </section>
+  <Modal id="editAccountModal">
+    <template #modalFormContent>
+      <EditAccountForm />
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -51,6 +58,9 @@ import Pop from "../utils/Pop.js"
 import { ticketsService } from "../services/TicketsService.js"
 import EventCard from "../components/EventCard.vue"
 import { towerEventsService } from "../services/TowerEventsService.js"
+import Modal from "../components/Modal.vue"
+import EditAccountForm from "../components/EditAccountForm.vue"
+
 export default {
   setup() {
     async function getTicketsByAccountId() {
@@ -83,7 +93,7 @@ export default {
       }
     };
   },
-  components: { EventCard }
+  components: { EventCard, Modal, EditAccountForm }
 }
 </script>
 
