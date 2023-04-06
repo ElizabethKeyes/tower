@@ -1,7 +1,7 @@
 <template>
-  <section class="row">
+  <section class="row px-4">
     <div class="col-12">
-      <h2 class="text-success mt-3">My Events</h2>
+      <h4 class="text-success mt-5">My Events</h4>
       <section class="row">
         <div class="col-md-3" v-for="t in towerEvents" :key="t.id">
           <EventCard :towerEvent="t.event" />
