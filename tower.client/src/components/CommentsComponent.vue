@@ -65,7 +65,6 @@ export default {
           const form = window.event.target
           const commentData = editable.value
           commentData.eventId = route.params.towerEventId
-          console.log(editable.value)
           await commentsService.postComment(commentData)
           form.reset()
         } catch (error) {
