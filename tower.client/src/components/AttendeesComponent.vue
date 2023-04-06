@@ -1,5 +1,5 @@
 <template>
-  <div class="attendees-card bg-grey">
+  <div class="bg-grey">
     <div v-for="t in tickets" :key="t.id">
       <img :src="t.profile.picture" :title="'a photo of ' + t.profile.name" class="profile-pic">
     </div>

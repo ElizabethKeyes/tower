@@ -1,9 +1,17 @@
 <template>
-  <section class="row px-4">
+  <section class="row px-4 justify-content-center">
     <div class="col-12">
       <EventDetailsCard />
       <p class="text-secondary mt-3">See who is attending</p>
       <AttendeesComponent />
+    </div>
+    <div class="col-md-10">
+      <p class="text-secondary mt-3">See what people are saying</p>
+      <div class="bg-grey py-2 px-4 mb-4">
+        <p class="text-success text-end mt-1">Join the conversation</p>
+        <CommentsComponent />
+      </div>
+
     </div>
   </section>
 </template>
@@ -19,6 +27,8 @@ import { towerEventsService } from "../services/TowerEventsService.js";
 import EventDetailsCard from '../components/EventDetailsCard.vue';
 import { ticketsService } from '../services/TicketsService.js'
 import AttendeesComponent from "../components/AttendeesComponent.vue";
+import CommentsComponent from "../components/CommentsComponent.vue";
+import { commentsService } from '../services/CommentsService.js'
 
 export default {
   setup() {
@@ -43,15 +53,27 @@ export default {
       }
     }
 
+    async function getCommentsByEventId() {
+      try {
+        const towerEventId = route.params.towerEventId
+        await commentsService.getCommentsByEventId(towerEventId)
+      } catch (error) {
+        logger.log(error)
+        Pop.error(error.message)
+      }
+    }
+
     onMounted(() => {
       getTowerEventById(),
-        getTowerEventAttendees()
+        getTowerEventAttendees(),
+        getCommentsByEventId()
     })
     return {
-      towerEvent: computed(() => AppState.towerEvent)
+      towerEvent: computed(() => AppState.towerEvent),
+      comments: computed(() => AppState.comments)
     }
   },
-  components: { EventDetailsCard, AttendeesComponent }
+  components: { EventDetailsCard, AttendeesComponent, CommentsComponent }
 }
 </script>
 
