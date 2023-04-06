@@ -2,8 +2,8 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TowerEventsService {
-  async getAllTowerEvents() {
-    const towerEvents = await dbContext.TowerEvents.find().populate("creator", "name picture")
+  async getAllTowerEvents(query) {
+    const towerEvents = await dbContext.TowerEvents.find(query).populate("creator", "name picture")
     return towerEvents
   }
 
