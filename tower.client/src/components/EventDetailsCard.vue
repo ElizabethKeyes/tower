@@ -26,6 +26,10 @@
                       <p class="dropdown-item mb-0"><i class="mdi mdi-cancel text-danger me-1"></i>Cancel Event
                       </p>
                     </li>
+                    <li data-bs-toggle="modal" data-bs-target="#editModal" class="no-text-shadow selectable">
+                      <p class="dropdown-item mb-0"><i class="mdi mdi-pencil text-dark me-1"></i>Edit Event
+                      </p>
+                    </li>
                   </ul>
                 </div>
 
@@ -50,6 +54,11 @@
       </section>
     </div>
   </div>
+  <Modal id="editModal">
+    <template #modalFormContent>
+      <EditEventForm />
+    </template>
+  </Modal>
 </template>
 
 
@@ -62,39 +71,43 @@ import Pop from "../utils/Pop.js";
 import { useRoute } from "vue-router";
 import { ticketsService } from "../services/TicketsService.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
+import Modal from "./Modal.vue";
+import EditEventForm from "./EditEventForm.vue";
+
 
 export default {
   setup() {
-    const route = useRoute()
+    const route = useRoute();
     return {
       towerEvent: computed(() => AppState.towerEvent),
       account: computed(() => AppState.account),
       hasTicket: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
-
       async attendEvent() {
         try {
-          const towerEventId = route.params.towerEventId
-          await ticketsService.attendEvent(towerEventId)
-          this.towerEvent.capacity--
-        } catch (error) {
-          logger.log(error)
-          Pop.error(error.message)
+          const towerEventId = route.params.towerEventId;
+          await ticketsService.attendEvent(towerEventId);
+          this.towerEvent.capacity--;
+        }
+        catch (error) {
+          logger.log(error);
+          Pop.error(error.message);
         }
       },
-
       async cancelEvent() {
         try {
           if (await Pop.confirm("Are you sure you'd like to cancel this event?", "This action can't be undone.", "Yes, I'm sure", "warning")) {
-            const towerEventId = route.params.towerEventId
-            await towerEventsService.cancelEvent(towerEventId)
+            const towerEventId = route.params.towerEventId;
+            await towerEventsService.cancelEvent(towerEventId);
           }
-        } catch (error) {
-          logger.error(error)
-          Pop.error(error.message)
+        }
+        catch (error) {
+          logger.error(error);
+          Pop.error(error.message);
         }
       }
-    }
-  }
+    };
+  },
+  components: { Modal, EditEventForm }
 }
 </script>
 

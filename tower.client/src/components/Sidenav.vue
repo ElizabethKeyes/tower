@@ -11,14 +11,18 @@
     </router-link>
     <div class="d-flex flex-column align-items-center">
       <button v-if="user.isAuthenticated" class="btn btn-success mt-4 mb-1 w-75 text-black" data-bs-toggle="modal"
-        data-bs-target="#exampleModal">New Event</button>
+        data-bs-target="#createModal">New Event</button>
       <!-- <button @click="login" v-if="!user.isAuthenticated" class="btn btn-outline-light mt-3 w-50">Login</button> -->
       <button @click="logout" v-if="user.isAuthenticated" class="btn btn-outline-light mt-4 w-75">
         Logout
       </button>
     </div>
   </section>
-  <Modal />
+  <Modal id="createModal">
+    <template #modalFormContent>
+      <CreateEventForm />
+    </template>
+  </Modal>
 </template>
 
 
@@ -28,6 +32,7 @@ import Login from "./Login.vue";
 import { AppState } from "../AppState.js";
 import { AuthService } from "../services/AuthService.js";
 import Modal from "./Modal.vue";
+import CreateEventForm from "./CreateEventForm.vue";
 
 export default {
   setup() {
@@ -42,7 +47,7 @@ export default {
       }
     };
   },
-  components: { Login, Modal }
+  components: { Login, Modal, CreateEventForm }
 }
 </script>
 
