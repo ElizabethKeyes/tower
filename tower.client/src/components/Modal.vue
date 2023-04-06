@@ -30,7 +30,7 @@
             <div class="col-6 mb-2">
               <label for="startDate">Start Date</label>
               <input type="date" class="form-control" required v-model="editable.startDate">
-              <!-- TODO restrict dates to future dates only -->
+              <!-- FIXME restrict dates to future dates only -->
             </div>
             <div class="col-6">
               <label for="type">Type of Event</label>

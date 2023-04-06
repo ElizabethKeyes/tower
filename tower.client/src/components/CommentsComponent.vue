@@ -1,7 +1,6 @@
 <template>
   <section class="row">
     <div v-if="account.id" class="col-12">
-      <!-- TODO disable/remove textarea when user is not logged in -->
       <form @submit.prevent="postComment()">
         <textarea name="comment box" id="comment-box" cols="30" rows="4" class="form-control mb-3"
           placeholder="tell the people..." v-model="editable.body"></textarea>
@@ -26,7 +25,8 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li @click="deleteComment(c.id)">
-                  <p class="dropdown-item mb-0"><i class="mdi mdi-delete-outline text-danger me-1"></i>Delete Comment</p>
+                  <p class="dropdown-item mb-0 selectable"><i class="mdi mdi-delete-outline text-danger me-1"></i>Delete
+                    Comment</p>
                 </li>
               </ul>
             </div>

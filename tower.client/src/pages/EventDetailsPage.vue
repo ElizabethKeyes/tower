@@ -9,6 +9,7 @@
       <p class="text-secondary mt-3">See what people are saying</p>
       <div class="bg-grey py-2 px-4 mb-4">
         <p class="text-success text-end mt-1" v-if="account.id">Join the conversation</p>
+        <h5 v-if="comments.length == 0" class="text-center py-2 mb-0">No comments yet... Let us hear from you!</h5>
         <CommentsComponent />
       </div>
 

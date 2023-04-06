@@ -24,6 +24,13 @@ class TowerEventsService {
     AppState.towerEvents.push(new TowerEvent(res.data))
     AppState.towerEvent = new TowerEvent(res.data)
   }
+
+  async cancelEvent(towerEventId) {
+    const res = await api.delete(`/api/events/${towerEventId}`)
+    const foundIndex = AppState.towerEvents.findIndex(t => t.id == towerEventId)
+    AppState.towerEvents[foundIndex].isCanceled = true
+    AppState.towerEvent.isCanceled = true
+  }
 }
 
 export const towerEventsService = new TowerEventsService()
