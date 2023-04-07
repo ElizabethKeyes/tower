@@ -18,7 +18,8 @@
                 <div v-if="towerEvent?.creatorId == account.id && towerEvent?.isCanceled == false"
                   class="dropdown d-flex justify-content-end ">
                   <button class="btn dropdown-toggle text-light p-0 my-dropdown" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false" role="expand dropdown menu for post options">
+                    data-bs-toggle="dropdown" aria-expanded="false" role="expand dropdown menu for post options"
+                    title="Event Options" aria-label="Event Options">
                     ...
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

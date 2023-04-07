@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { logger } from "../utils/Logger.js"
 import Pop from "../utils/Pop.js"
@@ -72,9 +72,27 @@ export default {
       }
     }
 
+    async function getEventsByCreatorId() {
+      try {
+        await towerEventsService.getEventsByCreatorId(AppState.account.id)
+      } catch (error) {
+        logger.log(error)
+        Pop.error(error.message)
+      }
+
+    }
+
     onMounted(() => {
       getTicketsByAccountId();
+      // getEventsByCreatorId()
+
     });
+
+    watchEffect(() => {
+      if (AppState.account?.id) {
+        getEventsByCreatorId()
+      }
+    })
     return {
       account: computed(() => AppState.account),
       tickets: computed(() => AppState.tickets),

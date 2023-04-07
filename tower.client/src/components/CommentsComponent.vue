@@ -21,8 +21,8 @@
               <p v-if="creatorAttending(c.creatorId)" class="text-grey ms-3">Attending this Event</p>
             </div>
             <div v-if="c.creatorId == account.id" class="dropdown">
-              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <button class="btn dropdown-toggle" type="button" title="Comment Options" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 ...
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

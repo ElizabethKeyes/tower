@@ -27,6 +27,7 @@ const routes = [
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
   },
+  // TODO look into authsettled and authguard
 ]
 
 export const router = createRouter({
