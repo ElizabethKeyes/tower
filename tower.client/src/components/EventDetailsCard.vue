@@ -18,16 +18,18 @@
                 <div v-if="towerEvent?.creatorId == account.id && towerEvent?.isCanceled == false"
                   class="dropdown d-flex justify-content-end ">
                   <button class="btn dropdown-toggle text-light p-0 my-dropdown" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false" role="expand dropdown menu for post options">
                     ...
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li @click="cancelEvent()" class="no-text-shadow selectable">
-                      <p class="dropdown-item mb-0"><i class="mdi mdi-cancel text-danger me-1"></i>Cancel Event
+                      <p class="dropdown-item mb-0" role="cancel event button"><i
+                          class="mdi mdi-cancel text-danger me-1"></i>Cancel Event
                       </p>
                     </li>
                     <li data-bs-toggle="modal" data-bs-target="#editModal" class="no-text-shadow selectable">
-                      <p class="dropdown-item mb-0"><i class="mdi mdi-pencil text-dark me-1"></i>Edit Event
+                      <p class="dropdown-item mb-0" role="edit event button"><i
+                          class="mdi mdi-pencil text-dark me-1"></i>Edit Event
                       </p>
                     </li>
                   </ul>
@@ -46,8 +48,8 @@
             <h5 v-else-if="towerEvent?.isCanceled" class="red-message">Cancelled</h5>
             <div v-show="!hasTicket && account?.id">
               <button @click="attendEvent()" v-show="towerEvent?.isCanceled == false && towerEvent?.capacity > 0"
-                class="btn btn-warning attend-button">Attend <img src="../assets/img/personIcon.svg" height="20"
-                  alt="person icon"></button>
+                class="btn btn-warning attend-button" role="attend event">Attend <img src="../assets/img/personIcon.svg"
+                  height="20" alt="person icon"></button>
             </div>
           </div>
         </div>
