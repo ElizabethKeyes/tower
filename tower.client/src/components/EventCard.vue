@@ -1,6 +1,6 @@
 <template>
   <router-link v-if="towerEvent" :to="{ name: 'EventDetails', params: { towerEventId: towerEvent?.id } }">
-    <div class="event-card" :style="{ backgroundImage: `url(${towerEvent.coverImg})` }">
+    <div class="event-card" :style="{ backgroundImage: `url(${towerEvent.coverImg})` }" role="link to event details">
       <div class="event-content" :class="{ capacityBorder: towerEvent.capacity <= 20 && towerEvent.capacity != 0 }">
         <div>
           <h6 class="mb-0">{{ towerEvent.name }}</h6>

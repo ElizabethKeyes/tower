@@ -2,7 +2,7 @@
   <section class="row px-4">
     <div class="col-12">
       <div class="d-flex justify-content-center">
-        <img src="../assets/img/seats.png" alt="" class="seats-pic">
+        <img src="../assets/img/seats.png" alt="a stock image of theater chairs" class="seats-pic">
         <div class="overlay-text text-light">
           <p>Get ahead of the scalpers.</p>
           <p>Reserve your seat now with</p>
@@ -14,8 +14,9 @@
       <div class="d-flex justify-content-evenly align-content-center bg-grey mt-4 py-2">
         <button class="btn text-light" :class="{ selectedUnderline: filterCategory === '' }"
           @click="changeFilterCategory('')">All</button>
-        <button class="btn text-light" :class="{ selectedUnderline: filterCategory === c.toLowerCase() }"
-          v-for="c in categories" @click="changeFilterCategory(c)">{{ c }}</button>
+        <button class="btn text-light" role="event filters"
+          :class="{ selectedUnderline: filterCategory === c.toLowerCase() }" v-for="c in categories"
+          @click="changeFilterCategory(c)">{{ c }}</button>
       </div>
     </div>
     <div class="col-md-3" v-for="t in towerEvents" :key="t.id">

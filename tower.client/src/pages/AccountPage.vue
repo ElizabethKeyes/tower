@@ -27,7 +27,7 @@
           <div class="bg-grey mb-4 ticket-card">
             <router-link v-if="tickets" :to="{ name: 'EventDetails', params: { towerEventId: t.event?.id } }"
               class="my-link">
-              <img :src="t.event?.coverImg" :alt="t.event?.name + ' cover image'" class="ticket-img">
+              <img :src="t.event?.coverImg" :alt="t.event?.name + ' cover image'" role="link to event" class="ticket-img">
             </router-link>
             <div class="mt-2 ms-2">
               <h6 class="text-light">{{ t.event?.name }}</h6>

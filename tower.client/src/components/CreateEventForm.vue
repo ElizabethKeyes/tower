@@ -25,8 +25,9 @@
             v-model="editable.capacity">
         </div>
         <div class="col-6 mb-2">
-          <label for="startDate">Start Date</label>
-          <input type="datetime-local" class="form-control" required v-model="editable.startDate">
+          <label for="datePicker">Start Date</label>
+          <input type="datetime-local" role="date picker" name="datePicker" id="datePicker" class="form-control" required
+            v-model="editable.startDate">
         </div>
         <div class="col-6">
           <label for="type">Type of Event</label>
