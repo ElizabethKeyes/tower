@@ -60,4 +60,11 @@ export default {
   text-align: center;
   align-content: start
 }
+
+@media screen and (max-width: 768px) {
+  .row {
+    display: none;
+
+  }
+}
 </style>

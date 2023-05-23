@@ -16,7 +16,8 @@
             Home
           </router-link>
         <li>
-          <router-link :to="{ name: 'Account' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'Account' }" class="btn text-success lighten-30 selectable text-uppercase"
+            v-if="user?.isAuthenticated">
             My Account
           </router-link>
         </li>
@@ -48,9 +49,7 @@ import { AuthService } from "../services/AuthService.js";
 export default {
   setup() {
     return {
-      user: computed(() => {
-        AppState.user
-      }),
+      user: computed(() => AppState.user),
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })
       },
