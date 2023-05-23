@@ -182,4 +182,19 @@ export default {
   text-shadow: 0px 0px 0px black;
 
 }
+
+@media screen and (max-width: 768px) {
+  .attend-button {
+    width: 20vw;
+  }
+
+  .featured-pic {
+    margin-left: 0;
+    margin-bottom: 2em;
+  }
+
+  .blur {
+    padding-top: 0
+  }
+}
 </style>

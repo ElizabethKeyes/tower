@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 mb-3">
+    <div class="col-12 mb-3 mobile-center">
       <div class="d-flex justify-content-evenly align-content-center bg-grey mt-4 py-2 scroll">
         <button class="btn text-light" :class="{ selectedUnderline: filterCategory === '' }"
           @click="changeFilterCategory('')">All</button>
@@ -120,6 +120,12 @@ export default {
 
   .overlay-text {
     left: 45px;
+  }
+
+  .mobile-center {
+    display: flex;
+    justify-content: center;
+
   }
 }
 </style>
