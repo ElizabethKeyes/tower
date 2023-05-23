@@ -11,11 +11,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <!-- <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
+        <li>
+          <router-link :to="{ name: 'Home' }" class="btn text-success lighten-30 selectable text-uppercase">
+            Home
           </router-link>
+        <li>
+          <router-link :to="{ name: 'Account' }" class="btn text-success lighten-30 selectable text-uppercase">
+            My Account
+          </router-link>
+        </li>
+        <li>
+          <p v-if="user?.isAuthenticated" class="btn text-success lighten-30 selectable text-uppercase" @click="logout()">
+            Logout</p>
+        </li>
+        <li>
+          <p v-if="!user?.isAuthenticated" class="btn text-success lighten-30 selectable text-uppercase" @click="login()">
+            Login</p>
+        </li>
+        <!-- <li>
+          <button v-if="accountId" class="btn btn-success mt-4 mb-1 w-75 text-black" data-bs-toggle="modal"
+            data-bs-target="#createModal">New Event</button>
         </li> -->
+        </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <!-- <Login /> -->
@@ -24,10 +41,23 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { AppState } from "../AppState.js";
 import Login from './Login.vue'
+import { AuthService } from "../services/AuthService.js";
 export default {
   setup() {
-    return {}
+    return {
+      user: computed(() => {
+        AppState.user
+      }),
+      async logout() {
+        AuthService.logout({ returnTo: window.location.origin })
+      },
+      async login() {
+        AuthService.loginWithPopup()
+      },
+    }
   },
   components: { Login }
 }
@@ -51,6 +81,10 @@ a:hover {
 @media screen and (min-width: 768px) {
   nav {
     height: 64px;
+  }
+
+  .navbar-nav {
+    display: none;
   }
 }
 </style>

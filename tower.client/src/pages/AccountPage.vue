@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="d-flex">
         <h4 class="text-success mt-5">My Events</h4>
-        <button class="btn btn-success text-black w-25 h-50 mt-5 ms-3 mb-3" type="button" data-bs-toggle="collapse"
+        <button class="btn btn-success text-black w-md-25 h-50 mt-5 ms-3 mb-3" type="button" data-bs-toggle="collapse"
           data-bs-target="#collapseMyEvents" aria-expanded="false" aria-controls="collapseMyEvents">
           Expand/Collapse Events
         </button>

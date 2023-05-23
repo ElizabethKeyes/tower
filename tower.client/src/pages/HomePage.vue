@@ -1,7 +1,7 @@
 <template>
   <section class="row px-4">
     <div class="col-12">
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center anchor">
         <img src="../assets/img/seats.png" alt="a stock image of theater chairs" class="seats-pic">
         <div class="overlay-text text-light">
           <p>Get ahead of the scalpers.</p>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="col-12 mb-3">
-      <div class="d-flex justify-content-evenly align-content-center bg-grey mt-4 py-2">
+      <div class="d-flex justify-content-evenly align-content-center bg-grey mt-4 py-2 scroll">
         <button class="btn text-light" :class="{ selectedUnderline: filterCategory === '' }"
           @click="changeFilterCategory('')">All</button>
         <button class="btn text-light" role="event filters"
@@ -91,12 +91,15 @@ export default {
   height: 30vh;
   margin-top: 2em;
   border: solid 2px #56C7FB;
-  position: relative
+}
+
+.anchor {
+  position: relative;
 }
 
 .overlay-text {
   position: absolute;
-  top: 156px;
+  top: 96px;
   left: 69px;
   font-size: 18px;
   text-shadow: black 1px 1px 3px;
@@ -105,5 +108,18 @@ export default {
 .selectedUnderline {
   border-bottom: 5px #79E7AB solid;
   border-radius: 0px
+}
+
+@media screen and (max-width: 768px) {
+  .scroll {
+    width: 300px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding-left: 4.5em;
+  }
+
+  .overlay-text {
+    left: 45px;
+  }
 }
 </style>
